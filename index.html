@@ -1,0 +1,105 @@
+---
+layout: default
+title: Home
+---
+
+
+<!-- Featured
+================================================== -->
+{% if page.url == "/" %}
+<section class="featured-posts">
+    <div class="section-title">
+        <h2><span>Featured</span></h2>
+    </div>
+    <div class="row">
+        {% for post in site.posts %}
+        {% if post.featured == true %}
+        {% include featuredbox.html %}
+        {% endif %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Posts Index
+================================================== -->
+<!--
+<section class="recent-posts">
+    <div class="section-title">
+        <h2><span>All Stories</span></h2>
+    </div>
+    <div class="row listrecent">
+        {% for post in paginator.posts %}
+        {% include postbox.html %}
+        {% endfor %}
+    </div>
+</section>
+
+-->
+            <!-- Cats & Tags Jumbotron
+            ================================================== -->
+            <div style="text-align: center; margin:auto; width:80%; white-space:normal">
+
+                <div style="font-size:39px;margin-bottom: 4vh;white-space:nowrap">Explore <span class="ct-bt cat-bt">CATEGORIES</span> and <span class="ct-bt tag-bt">TAGS</span> </div>
+
+                {% assign categories_list = site.categories %}
+                {% if categories_list.first[0] == null %}
+                {% for category in categories_list %}
+                {% if site.tags[category].size  > 5 %}
+                <span><a target="_blank" class="ct-bt cat-bt" href="{{site.baseurl}}/categories#{{ category | url_escape | strip | replace: ' ', '-' }}">{{ category | camelcase }} ({{ site.tags[category].size }})</a></span>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                {% for category in categories_list %} 
+                {% if category[1].size  > 5 %}
+                <span><a target="_blank" class="ct-bt cat-bt" href="{{site.baseurl}}/categories#{{ category[0] | url_escape | strip | replace: ' ', '-' }}">{{ category[0] | camelcase }} ({{ category[1].size }})</a></span>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% assign categories_list = nil %}
+
+                {% assign tags_list = site.tags %}
+                {% if tags_list.first[0] == null %}
+                {% for tag in tags_list %}
+                {% if site.tags[tag].size  > 5 %}
+                <span><a target="_blank" class="ct-bt tag-bt" href="{{site.baseurl}}/tags#{{ category | url_escape | strip | replace: ' ', '-' }}">{{ tag | camelcase }} ({{ site.tags[tag].size }})</a></span>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                {% for tag in tags_list %}
+                {% if tag[1].size  > 5 %}
+                <span><a target="_blank" class="ct-bt tag-bt" href="{{site.baseurl}}/tags#{{ category[0] | url_escape | strip | replace: ' ', '-' }}">{{ tag[0] | camelcase }} ({{ tag[1].size }})</a></span>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% assign tags_list = nil %}
+            </div>
+
+<!-- Everything Else
+================================================== -->
+{% if page.url == "/" %}
+<section class="featured-posts">
+    <div class="section-title">
+        <h2><span>Everything Else</span></h2>
+    </div>
+    <div class="row">
+        {% for post in site.posts %}
+        {% if post.featured == false %}
+        {% include featuredbox.html %}
+        {% endif %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+
+
+
+<!-- Pagination
+================================================== -->
+<div class="bottompagination">
+    <div class="pointerup"><i class="fa fa-caret-up"></i></div>
+    <span class="navigation" role="navigation">
+        {% include pagination.html %}
+    </span>
+</div>
